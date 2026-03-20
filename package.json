@@ -1,7 +1,7 @@
 {
   "name": "find_user_tools",
   "productName": "Circul tools",
-  "version": "1.2.0",
+  "version": "1.2.2",
   "main": "electron-main/main.js",
   "scripts": {
     "dev": "electron .",
@@ -29,7 +29,7 @@
       {
         "provider": "github",
         "owner": "xiaoge19961220",
-        "repo": "tools"
+        "repo": "Circul-Tools"
       }
     ],
     "mac": {
