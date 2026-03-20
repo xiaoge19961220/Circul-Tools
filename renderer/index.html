@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>用户查询工具</title>
+    <link rel="stylesheet" href="./app.css">
+</head>
+<body>
+<div id="settingsModal" class="modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="settingsTitle">
+    <div class="modal">
+        <div class="modal-header">
+            <div id="settingsTitle" class="modal-title">设置</div>
+            <button id="settingsCloseBtn" class="modal-close" type="button" aria-label="关闭">✕</button>
+        </div>
+
+        <div class="section">
+            <div class="section-title">证书状态</div>
+            <div id="certStatusLine" class="status-line">加载中…</div>
+            <pre id="certStatusDetails" class="details"></pre>
+            <div class="btn-row">
+                <button id="certImportBtn" type="button">导入证书/密钥</button>
+                <button id="certClearBtn" type="button" class="danger">清除证书</button>
+                <button id="certRefreshBtn" type="button" class="secondary">刷新</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">服务器/数据库配置</div>
+            <div id="serverDbStatusLine" class="status-line">加载中…</div>
+            <pre id="serverDbStatusDetails" class="details"></pre>
+            <div class="btn-row">
+                <button id="serverDbImportBtn" type="button">导入配置</button>
+                <button id="serverDbClearBtn" type="button" class="danger">清除配置</button>
+                <button id="serverDbRefreshBtn" type="button" class="secondary">刷新</button>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">查询记录</div>
+            <div class="status-line" id="logDirLine">保存位置：加载中…</div>
+            <div class="btn-row">
+                <button id="logChooseDirBtn" type="button" class="secondary">设置保存位置</button>
+                <button id="logExportActiveBtn" type="button" class="secondary">导出当前日志</button>
+                <button id="logExportLatestArchiveBtn" type="button" class="secondary">导出最近归档</button>
+                <button id="logClearPersistBtn" type="button" class="danger">清空记录</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="layout">
+    <div class="panel">
+        <div class="panel-title-row">
+            <div class="panel-title">查询条件</div>
+            <button id="settingsBtn" class="gear-btn inline" type="button" aria-label="设置">⚙</button>
+        </div>
+
+        <div class="query-mode-row" role="radiogroup" aria-label="查询方式">
+            <label class="mode-chip">
+                <input type="radio" name="queryMode" value="email" checked />
+                邮箱查询
+            </label>
+            <label class="mode-chip">
+                <input type="radio" name="queryMode" value="sn" />
+                SN 查询
+            </label>
+        </div>
+
+        <label id="inputLabel" class="field-label" for="inputBox">邮箱（必填）</label>
+        <input type="text" id="inputBox" placeholder="name@example.com" autocomplete="false" />
+
+        <div id="queryFieldsSection">
+            <div class="row-between">
+                <div class="field-label">查询字段（可选，不选默认查全部）</div>
+                <div class="tiny-actions">
+                    <button id="selectAllBtn" type="button" class="secondary small">全选</button>
+                    <button id="selectNoneBtn" type="button" class="secondary small">全不选</button>
+                </div>
+            </div>
+
+            <div class="checkbox-grid">
+                <label class="chip"><input type="checkbox" value="password" /> 密码</label>
+                <label class="chip"><input type="checkbox" value="platform" /> 平台</label>
+                <label class="chip"><input type="checkbox" value="sn" /> SN</label>
+                <label class="chip"><input type="checkbox" value="mac" /> MAC</label>
+                <label class="chip"><input type="checkbox" value="build" /> App版本</label>
+                <label class="chip"><input type="checkbox" value="swVersion" /> 固件版本</label>
+            </div>
+        </div>
+
+        <div class="actions">
+            <button id="submitBtn" class="primary" type="button">开始查询</button>
+            <button id="clearBtn" class="secondary" type="button">清空</button>
+        </div>
+    </div>
+
+    <div class="panel">
+        <div class="panel-title-row">
+            <div class="panel-title">日志 / 输出</div>
+            <button id="copyLogBtn" class="secondary small" type="button">复制</button>
+        </div>
+        <pre id="log" class="log"></pre>
+    </div>
+</div>
+
+<div id="toastRoot" class="toast-root"></div>
+
+<div id="uiModal" class="ui-modal-backdrop hidden" role="dialog" aria-modal="true" aria-labelledby="uiModalTitle">
+    <div class="ui-modal">
+        <div class="ui-modal-head">
+            <div id="uiModalTitle" class="ui-modal-title">提示</div>
+            <button id="uiModalCloseBtn" class="modal-close" type="button" aria-label="关闭">✕</button>
+        </div>
+        <div id="uiModalBody" class="ui-modal-body"></div>
+        <div class="ui-modal-actions">
+            <button id="uiModalOkBtn" class="primary" type="button">知道了</button>
+        </div>
+    </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
