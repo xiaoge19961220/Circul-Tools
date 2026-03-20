@@ -58,32 +58,3 @@ jobs:
           path: dist/**
           if-no-files-found: warn
 
-  publish-release:
-    runs-on: ubuntu-latest
-    needs: [build-win, build-mac]
-    permissions:
-      contents: write
-    steps:
-      - name: Publish draft GitHub Release
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const tag = context.ref.replace('refs/tags/', '');
-            core.info(`Publishing release for tag: ${tag}`);
-            const { data: release } = await github.rest.repos.getReleaseByTag({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              tag,
-            });
-            if (!release.draft) {
-              core.info('Release is already published.');
-              return;
-            }
-            await github.rest.repos.updateRelease({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              release_id: release.id,
-              draft: false,
-            });
-            core.info('Release published.');
-
