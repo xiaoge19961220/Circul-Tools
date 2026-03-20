@@ -37,6 +37,10 @@ function setupAutoUpdater() {
     };
 
     autoUpdater.on('error', (err) => console.error('autoUpdater error:', err));
+    autoUpdater.on('checking-for-update', () => console.log('[updater] checking-for-update'));
+    autoUpdater.on('update-available', (info) => console.log('[updater] update-available:', info?.version));
+    autoUpdater.on('update-not-available', () => console.log('[updater] update-not-available'));
+    autoUpdater.on('download-progress', (progress) => console.log('[updater] download-progress:', progress));
     autoUpdater.on('update-downloaded', () => {
         // Install after download with standard electron-updater flow.
         try {
@@ -160,7 +164,32 @@ app.whenReady().then(() => {
         // Check for updates only for packaged builds.
         if (app.isPackaged) {
             setupAutoUpdater();
-            autoUpdater.checkForUpdatesAndNotify().catch((e) => console.error(e));
+            try {
+                const p = autoUpdater.checkForUpdatesAndNotify();
+                // `electron-updater` Promise result varies by version; we only log it.
+                if (p && typeof p.then === 'function') {
+                    p.then((res) => console.log('[updater] checkForUpdatesAndNotify result:', res))
+                        .catch((e) => {
+                            console.error('[updater] checkForUpdatesAndNotify failed:', e);
+                            dialog.showMessageBox(win, {
+                                type: 'error',
+                                title: '检查更新失败',
+                                message: '自动更新检查失败',
+                                detail: e?.message || String(e),
+                                noLink: true,
+                            });
+                        });
+                }
+            } catch (e) {
+                console.error('[updater] checkForUpdatesAndNotify threw:', e);
+                dialog.showMessageBox(win, {
+                    type: 'error',
+                    title: '检查更新失败',
+                    message: '自动更新检查失败',
+                    detail: e?.message || String(e),
+                    noLink: true,
+                });
+            }
         }
     });
 })
