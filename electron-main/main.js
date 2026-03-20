@@ -297,6 +297,10 @@ ipcMain.handle('clipboard:writeText', async (event, text) => {
     return { ok: true };
 });
 
+ipcMain.handle('app:get-version', async () => {
+    return { version: app.getVersion() };
+});
+
 // 接收渲染进程的数据
 ipcMain.handle('submit-input', async (event, data) => {
     const serverStatus = await validateServerDbConfig();

@@ -1,0 +1,27 @@
+{
+  "ssh": {
+    "port": 22,
+    "username": "__PUT_SSH_USERNAME_HERE__",
+    "regions": {
+      "default": { "host": "__PUT_US_HOST_HERE__" },
+      "jp1": { "host": "__PUT_JP_HOST_HERE__" }
+    }
+  },
+  "forward": {
+    "srcAddr": "127.0.0.1",
+    "srcPort": 27018,
+    "dstPort": 27017,
+    "regions": {
+      "default": { "dstAddr": "__PUT_US_DOCDB_ENDPOINT_HERE__" },
+      "jp1": { "dstAddr": "__PUT_JP_DOCDB_ENDPOINT_HERE__" }
+    }
+  },
+  "mongo": {
+    "username": "__PUT_MONGO_USERNAME_HERE__",
+    "password": "__PUT_MONGO_PASSWORD_HERE__",
+    "url": "127.0.0.1",
+    "database": "__PUT_MONGO_DATABASE_HERE__",
+    "options": "retryWrites=false&directConnection=true"
+  }
+}
+

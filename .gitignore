@@ -7,5 +7,4 @@ node_modules
 dist
 id_ed25519
 global-bundle.pem
-connection-config/
 .env

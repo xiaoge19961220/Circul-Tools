@@ -47,6 +47,17 @@ body { font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif; margin: 14p
     border-bottom: 1px solid #eef2f6;
     background: #fbfcfe;
 }
+.modal-header-left{
+    display:flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.1;
+}
+.modal-header-left .status-line{
+    margin: 0;
+    font-size: 12px;
+    color: #667085;
+}
 .modal-title{ font-weight: 800; }
 .modal-close{
     width: 34px;

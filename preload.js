@@ -13,6 +13,7 @@ contextBridge.exposeInMainWorld('api', {
     listQueryLogFiles: () => ipcRenderer.invoke('querylog:files:list'),
     exportQueryLogFile: (filename) => ipcRenderer.invoke('querylog:file:export', filename),
     clipboardWriteText: (text) => ipcRenderer.invoke('clipboard:writeText', text),
+    getAppVersion: () => ipcRenderer.invoke('app:get-version'),
     serverDbGetStatus: () => ipcRenderer.invoke('serverdb:get-status'),
     serverDbImport: () => ipcRenderer.invoke('serverdb:import'),
     serverDbClear: () => ipcRenderer.invoke('serverdb:clear'),

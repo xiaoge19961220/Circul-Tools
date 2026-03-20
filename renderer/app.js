@@ -13,6 +13,7 @@ const uiModalCloseBtn = document.getElementById('uiModalCloseBtn');
 const settingsBtn = document.getElementById('settingsBtn');
 const settingsModal = document.getElementById('settingsModal');
 const settingsCloseBtn = document.getElementById('settingsCloseBtn');
+const appVersionText = document.getElementById('appVersionText');
 const certStatusLine = document.getElementById('certStatusLine');
 const certStatusDetails = document.getElementById('certStatusDetails');
 const certImportBtn = document.getElementById('certImportBtn');
@@ -157,6 +158,12 @@ applyQueryModeUI(getQueryMode());
 
 settingsBtn?.addEventListener('click', async () => {
     setModalOpen(true);
+    try {
+        const v = await window.api.getAppVersion();
+        if (appVersionText) appVersionText.textContent = v?.version ? `版本：${v.version}` : '';
+    } catch {
+        if (appVersionText) appVersionText.textContent = '';
+    }
     await refreshCertStatus();
     await refreshServerDbStatus();
     await refreshLogDirLine();
