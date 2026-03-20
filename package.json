@@ -7,11 +7,14 @@
     "dev": "electron .",
     "start": "electron .",
     "dist": "electron-builder",
-    "dist:mac": "electron-builder --mac",
-    "dist:win": "electron-builder --win",
+    "dist:mac": "electron-builder --mac --publish never",
+    "dist:win": "electron-builder --win --publish never",
+    "dist:mac:publish": "electron-builder --mac --publish always",
+    "dist:win:publish": "electron-builder --win --publish always",
     "release": "node -r dotenv/config ./node_modules/.bin/electron-builder --publish always"
   },
   "dependencies": {
+    "electron-updater": "^6.8.3",
     "fs-extra": "^11.3.3",
     "mongodb": "^7.0.0",
     "tunnel-ssh": "^5.2.0"

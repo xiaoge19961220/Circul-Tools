@@ -1,4 +1,5 @@
 const { app, BrowserWindow, ipcMain, Menu, dialog, clipboard } = require('electron');
+const { autoUpdater } = require('electron-updater');
 const path = require('path');
 const Tunnel = require("../ssh-tunnel");
 const MongoDB = require("../db");
@@ -26,6 +27,25 @@ const { log } = require('console');
 
 let win;
 // login removed
+
+function setupAutoUpdater() {
+    // Keep it simple: log to console and auto-install on download.
+    autoUpdater.logger = {
+        info: console.log,
+        warn: console.warn,
+        error: console.error,
+    };
+
+    autoUpdater.on('error', (err) => console.error('autoUpdater error:', err));
+    autoUpdater.on('update-downloaded', () => {
+        // Install after download with standard electron-updater flow.
+        try {
+            autoUpdater.quitAndInstall(false, true);
+        } catch (e) {
+            console.error('quitAndInstall failed:', e);
+        }
+    });
+}
 
 function createWindow() {
     win = new BrowserWindow({
@@ -136,6 +156,12 @@ app.whenReady().then(() => {
     win.webContents.once('did-finish-load', async () => {
         await promptImportServerDbConfigLoop(win);
         await promptImportCredentialsLoop(win);
+
+        // Check for updates only for packaged builds.
+        if (app.isPackaged) {
+            setupAutoUpdater();
+            autoUpdater.checkForUpdatesAndNotify().catch((e) => console.error(e));
+        }
     });
 })
 
