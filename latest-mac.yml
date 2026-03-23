@@ -1,0 +1,8 @@
+version: 1.2.7
+files:
+  - url: Circul-tools-1.2.7-arm64.dmg
+    sha512: isw9am9+W8Ie+4BsYf6LXxn0cVY2OpD4V8oxEBI5XqCXJbJ3qYKPiaudxn3ZV61xt9jFMwHipXsvPG7J8iMBLw==
+    size: 99672838
+path: Circul-tools-1.2.7-arm64.dmg
+sha512: isw9am9+W8Ie+4BsYf6LXxn0cVY2OpD4V8oxEBI5XqCXJbJ3qYKPiaudxn3ZV61xt9jFMwHipXsvPG7J8iMBLw==
+releaseDate: '2026-03-20T10:13:53.394Z'

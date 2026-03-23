@@ -162,7 +162,15 @@ app.whenReady().then(() => {
         await promptImportCredentialsLoop(win);
 
         // Check for updates only for packaged builds.
-        if (app.isPackaged) {
+        const shouldCheckUpdates =
+            app.isPackaged || String(process.env.ELECTRON_UPDATER_DEBUG) === '1';
+
+        if (shouldCheckUpdates) {
+            if (!app.isPackaged) {
+                // electron-updater默认不会在dev里检查，需要强制读取更新配置
+                autoUpdater.forceDevUpdateConfig = true;
+                console.log('[updater] dev check enabled (ELECTRON_UPDATER_DEBUG=1)');
+            }
             setupAutoUpdater();
             try {
                 const p = autoUpdater.checkForUpdatesAndNotify();
